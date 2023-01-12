@@ -1,7 +1,15 @@
-import React from "react";
+import "./App.css";
+
+import Filter from "./src/components/Filter/Filter";
+import EmailList from "./src/components/EmailList/EmailList";
 
 function App() {
-  return <h1>Hello World!</h1>;
+  return (
+    <div className="app">
+      <Filter />
+      <EmailList />
+    </div>
+  );
 }
 
 export default App;

@@ -1,0 +1,31 @@
+.filters {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filters .label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.filters .filter {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  font-weight: 600;
+}
+
+.filters .filter:hover,
+.filters .filter:active {
+  transform: scale(1.1);
+}
+
+.filters .filter.active {
+  background: var(--color-filter);
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+}

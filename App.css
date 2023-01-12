@@ -1,0 +1,27 @@
+:root {
+  --color-background: #f4f5f9;
+  --color-accent: #e54065;
+  --color-border: #cfd2dc;
+  --color-text: #636363;
+  --color-filter: #e1e4ea;
+  --color-read-background: #f2f2f2;
+}
+
+body {
+  background-color: var(--color-background);
+  font-family: "Roboto", sans-serif;
+}
+
+.app {
+  padding: 1rem;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+@media (min-width: 40rem) {
+  .app {
+    padding: 4rem;
+  }
+}
