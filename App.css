@@ -10,6 +10,7 @@
 body {
   background-color: var(--color-background);
   font-family: "Roboto", sans-serif;
+  font-size: 14px;
 }
 
 .app {
@@ -20,8 +21,48 @@ body {
   font-weight: bold;
 }
 
+.app:has(.open) .left,
+.app:has(.open) .filters {
+  display: none;
+}
+
+.right button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #fff;
+  color: #000;
+  margin-bottom: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
 @media (min-width: 40rem) {
   .app {
     padding: 4rem;
+  }
+
+  .container {
+    display: flex;
+  }
+
+  .app .left {
+    width: 35%;
+  }
+
+  .app .right {
+    padding: 1rem;
+  }
+
+  .app:has(.open) .left {
+    display: block;
+  }
+
+  .app:has(.open) .filters {
+    display: flex;
+  }
+
+  .right button.inbox {
+    display: none;
   }
 }

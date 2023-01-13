@@ -1,0 +1,49 @@
+.email {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--color-text);
+  position: relative;
+}
+
+.email .info {
+  line-height: 150%;
+}
+
+.email .info .subject {
+  font-size: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+.email .info time {
+  display: block;
+  padding-bottom: 1rem;
+}
+
+.email .info .favorite-btn {
+  position: absolute;
+  right: 1rem;
+  background: var(--color-accent);
+  border-radius: 18px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@media (min-width: 40rem) {
+  .email {
+    flex-direction: row;
+    padding: 2rem 1.5rem;
+  }
+
+  .email .info {
+    padding-inline: 1rem;
+  }
+
+  .email .info .favorite-btn {
+    right: 2.5rem;
+  }
+}

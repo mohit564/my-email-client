@@ -1,6 +1,10 @@
 import Moment from "react-moment";
 
+// styles
 import "./EmailCard.css";
+
+// components
+import Avatar from "../Avatar/Avatar";
 
 const email = {
   id: "1",
@@ -16,9 +20,9 @@ const email = {
 
 function EmailCard() {
   return (
-    <section className="email-card">
-      <div className="avatar">
-        <p>{email.from.name.charAt(0).toUpperCase()}</p>
+    <section className="email-card read open">
+      <div className="icon">
+        <Avatar name={email.from.name} />
       </div>
       <div className="info">
         <p>
@@ -33,7 +37,7 @@ function EmailCard() {
         <p className="description">{email.short_description}</p>
         <div className="metadata">
           <Moment format="DD/MM/YYYY h:mma">{email.date}</Moment>
-          <p className="favorite">Favorite</p>
+          <p className="favorite bold">Favorite</p>
         </div>
       </div>
     </section>

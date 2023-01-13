@@ -1,0 +1,24 @@
+.avatar {
+  display: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: relative;
+  background: var(--color-accent);
+}
+
+.avatar h1 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-width: 40rem) {
+  .avatar {
+    display: block;
+  }
+}

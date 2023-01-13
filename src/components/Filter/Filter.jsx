@@ -1,3 +1,4 @@
+// styles
 import "./Filter.css";
 
 function Filter() {
