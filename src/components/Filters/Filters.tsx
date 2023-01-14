@@ -1,7 +1,9 @@
-// styles
-import "./Filter.css";
+import React from "react";
 
-function Filter() {
+// styles
+import "./Filters.css";
+
+function Filters() {
   return (
     <section className="filters">
       <p className="label">Filter By:</p>
@@ -12,4 +14,4 @@ function Filter() {
   );
 }
 
-export default Filter;
+export default Filters;

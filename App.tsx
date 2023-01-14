@@ -1,15 +1,17 @@
+import React from "react";
+
 // styles
 import "./App.css";
 
 // components
-import Filter from "./src/components/Filter/Filter";
+import Filters from "./src/components/Filters/Filters";
 import EmailList from "./src/components/EmailList/EmailList";
 import EmailBody from "./src/components/EmailBody/EmailBody";
 
 function App() {
   return (
-    <div className="app">
-      <Filter />
+    <main className="app">
+      <Filters />
       <div className="container">
         <div className="left">
           <EmailList />
@@ -19,7 +21,7 @@ function App() {
           <EmailBody />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

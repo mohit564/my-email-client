@@ -1,3 +1,4 @@
+import React from "react";
 import EmailCard from "../EmailCard/EmailCard";
 
 function EmailList() {
