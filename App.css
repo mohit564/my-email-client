@@ -21,17 +21,21 @@ body {
   font-weight: bold;
 }
 
+.app .left {
+  width: 100%;
+}
+
 .app:has(.open) .left,
 .app:has(.open) .filters {
   display: none;
 }
 
-.right button {
+.right .inbox {
   padding: 8px 16px;
   border-radius: 8px;
   border: none;
   outline: none;
-  background: #fff;
+  background: #b2b2b2;
   color: #000;
   margin-bottom: 1rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -46,16 +50,13 @@ body {
     display: flex;
   }
 
-  .app .left {
-    width: 35%;
-  }
-
   .app .right {
     padding: 1rem;
   }
 
   .app:has(.open) .left {
     display: block;
+    width: 35%;
   }
 
   .app:has(.open) .filters {

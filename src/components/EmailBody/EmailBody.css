@@ -9,6 +9,10 @@
   position: relative;
 }
 
+.email .icon {
+  display: none;
+}
+
 .email .info {
   line-height: 150%;
 }
@@ -26,10 +30,14 @@
 .email .info .favorite-btn {
   position: absolute;
   right: 1rem;
-  background: var(--color-accent);
+  padding: 8px 16px;
   border-radius: 18px;
-  color: #fff;
+  border: none;
+  outline: none;
   font-size: 12px;
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
 }
 
@@ -39,11 +47,20 @@
     padding: 2rem 1.5rem;
   }
 
+  .email .icon {
+    display: block;
+  }
+
   .email .info {
     padding-inline: 1rem;
   }
 
   .email .info .favorite-btn {
     right: 2.5rem;
+  }
+
+  .email .info .favorite-btn:hover,
+  .email .info .favorite-btn:active {
+    transform: scale(1.05);
   }
 }
