@@ -10,6 +10,11 @@
   overflow: hidden;
 }
 
+.email-card.skelton {
+  min-height: 100px;
+  background: #dfdfdf;
+}
+
 .email-card.read {
   background: var(--color-read-background);
 }
