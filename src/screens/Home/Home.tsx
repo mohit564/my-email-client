@@ -16,10 +16,12 @@ function Home() {
         <div className="left">
           <EmailList />
         </div>
-        <div className="right">
-          <button className="inbox">&laquo; Inbox</button>
-          <EmailBody />
-        </div>
+        {false && (
+          <div className="right">
+            <button className="inbox">&laquo; Inbox</button>
+            <EmailBody />
+          </div>
+        )}
       </div>
     </main>
   );
