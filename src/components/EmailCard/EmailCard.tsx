@@ -10,26 +10,34 @@ import { Email } from "../../models/email";
 // components
 import Avatar from "../Avatar/Avatar";
 
-function EmailCard(props: Email) {
+export type EmailCardProps = Email;
+
+function EmailCard(props: EmailCardProps) {
+  const {
+    from: { name, email },
+    subject,
+    short_description,
+    date,
+    hasRead,
+    isFavorite,
+  } = props;
+
   return (
-    <section className={`email-card ${props.hasRead ? "read" : ""}`}>
+    <section className={`email-card ${hasRead ? "read" : ""}`}>
       <div className="icon">
-        <Avatar name={props.from.name} />
+        <Avatar name={name} />
       </div>
       <div className="info">
         <p>
-          From:{" "}
-          <span className="bold">
-            {`${props.from.name} <${props.from.email}>`}
-          </span>
+          From: <span className="bold">{`${name} <${email}>`}</span>
         </p>
         <p>
-          Subject: <span className="bold">{props.subject}</span>
+          Subject: <span className="bold">{subject}</span>
         </p>
-        <p className="description">{props.short_description}</p>
+        <p className="description">{short_description}</p>
         <div className="metadata">
-          <Moment format="DD/MM/YYYY h:mma">{props.date}</Moment>
-          {props.isFavorite && <p className="favorite bold">Favorite</p>}
+          <Moment format="DD/MM/YYYY h:mma">{date}</Moment>
+          {isFavorite && <p className="favorite bold">Favorite</p>}
         </div>
       </div>
     </section>

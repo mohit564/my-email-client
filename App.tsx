@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import "./App.css";
 
 // routes
-import { routes } from "./src/routes/routes";
+import { routes } from "./src/routes";
 
 // store
 import { store } from "./src/redux/store";
