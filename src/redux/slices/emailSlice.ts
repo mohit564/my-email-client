@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // types
-import { EmailState } from "../../models/email";
+import { Email, EmailState } from "../../models/email";
 
 // services
 import { fetchEmailsByPage, fetchEmailById } from "../../services/email";
@@ -17,7 +17,17 @@ const initialState = {
 export const emailSlice = createSlice({
   name: "email",
   initialState,
-  reducers: {},
+  reducers: {
+    onFavoriteClickHandler: (state, action: PayloadAction<number>) => {
+      const index = action.payload;
+
+      const email = state.selectedEmail as Email;
+      const newEmail = { ...email, isFavorite: !email.isFavorite };
+
+      state.list[index - 1] = newEmail;
+      state.selectedEmail = newEmail;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchEmailsByPage.pending, (state, action) => {
       state.loading = true;
@@ -74,5 +84,7 @@ export const emailSlice = createSlice({
     });
   },
 });
+
+export const { onFavoriteClickHandler } = emailSlice.actions;
 
 export default emailSlice.reducer;

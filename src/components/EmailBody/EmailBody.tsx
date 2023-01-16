@@ -9,6 +9,12 @@ import "../Avatar/Avatar.css";
 // types
 import { Email } from "../../models/email";
 
+// actions
+import { onFavoriteClickHandler } from "../../redux/slices/emailSlice";
+
+// hooks
+import { useAppDispatch } from "../../redux/store";
+
 // components
 import EmailBodySkelton from "./EmailBodySkelton";
 import Avatar from "../Avatar/Avatar";
@@ -23,6 +29,9 @@ const EmailBody = ({
   isFavorite,
   body,
 }: EmailBodyProps) => {
+  const dispatch = useAppDispatch();
+
+  const buttonText = isFavorite ? "Remove Favorite" : "Mark as Favorite";
   return (
     <article className="email">
       {body.length === 0 ? (
@@ -35,9 +44,9 @@ const EmailBody = ({
           <section className="info">
             <button
               className={`favorite-btn ${isFavorite ? "remove" : ""}`}
-              onClick={() => console.log(id)}
+              onClick={() => dispatch(onFavoriteClickHandler(parseInt(id)))}
             >
-              {isFavorite ? "Remove Favorite" : "Mark as Favorite"}
+              {buttonText}
             </button>
             <h1 className="subject bold">{subject}</h1>
             <Moment format="DD/MM/YYYY h:mma">{date}</Moment>
