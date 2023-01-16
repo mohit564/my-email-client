@@ -45,6 +45,10 @@
   .email {
     flex-direction: row;
     padding: 2rem 1.5rem;
+    position: sticky;
+    top: 2rem;
+    max-height: 80vh;
+    overflow-y: scroll;
   }
 
   .email .icon {
