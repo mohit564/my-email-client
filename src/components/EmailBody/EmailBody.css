@@ -9,6 +9,12 @@
   position: relative;
 }
 
+.email .skelton {
+  background: #dfdfdf;
+  width: 100%;
+  min-height: 100vh;
+}
+
 .email .icon {
   display: none;
 }
@@ -39,6 +45,10 @@
   color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   cursor: pointer;
+}
+
+.email .info .favorite-btn.remove {
+  background: #48817b;
 }
 
 @media (min-width: 40rem) {

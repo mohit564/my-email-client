@@ -4,6 +4,8 @@ export type EmailState = {
 
   list: Email[];
   total: number;
+
+  selectedEmail: Email | null;
 };
 
 export type Email = {
@@ -23,6 +25,6 @@ export type EmailFrom = {
 };
 
 export type EmailFilters = {
-  id?: number;
+  id?: string;
   page?: number;
 };

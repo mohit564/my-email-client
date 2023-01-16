@@ -8,6 +8,7 @@
   gap: 1rem;
   cursor: pointer;
   overflow: hidden;
+  background: white;
 }
 
 .email-card.skelton {
@@ -17,6 +18,10 @@
 
 .email-card.read {
   background: var(--color-read-background);
+}
+
+.email-card.open {
+  border: 1px solid var(--color-accent);
 }
 
 .email-card .icon {

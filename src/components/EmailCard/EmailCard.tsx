@@ -7,23 +7,36 @@ import "./EmailCard.css";
 // types
 import { Email } from "../../models/email";
 
+// hooks
+import { useAppDispatch } from "../../redux/store";
+
+// services
+import { fetchEmailById } from "../../services/email";
+
 // components
 import Avatar from "../Avatar/Avatar";
 
-export type EmailCardProps = Email;
+export type EmailCardProps = Email & { selectedEmailId: string };
 
-function EmailCard(props: EmailCardProps) {
-  const {
-    from: { name, email },
-    subject,
-    short_description,
-    date,
-    hasRead,
-    isFavorite,
-  } = props;
+const EmailCard = ({
+  id,
+  from: { name, email },
+  subject,
+  short_description,
+  date,
+  hasRead,
+  isFavorite,
+  selectedEmailId,
+}: EmailCardProps) => {
+  const dispatch = useAppDispatch();
 
   return (
-    <section className={`email-card ${hasRead ? "read" : ""}`}>
+    <section
+      className={`email-card ${hasRead ? "read" : ""} ${
+        selectedEmailId === id ? "open" : ""
+      }`}
+      onClick={() => dispatch(fetchEmailById({ id }))}
+    >
       <div className="icon">
         <Avatar name={name} />
       </div>
@@ -42,6 +55,6 @@ function EmailCard(props: EmailCardProps) {
       </div>
     </section>
   );
-}
+};
 
 export default EmailCard;

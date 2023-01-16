@@ -2,12 +2,20 @@
   padding: 1rem;
 }
 
-.app .left {
+.app .filters {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.app .left,
+.app .right {
   width: 100%;
 }
 
-.app:has(.open) .left,
-.app:has(.open) .filters {
+.app .filters.email-open,
+.app .left.email-open {
   display: none;
 }
 
@@ -35,13 +43,13 @@
     padding: 1rem;
   }
 
-  .app:has(.open) .left {
-    display: block;
-    width: 35%;
+  .app .filters.email-open {
+    display: flex;
   }
 
-  .app:has(.open) .filters {
-    display: flex;
+  .app .left.email-open {
+    display: block;
+    width: 35%;
   }
 
   .right button.inbox {
