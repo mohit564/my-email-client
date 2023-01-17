@@ -18,14 +18,18 @@ export const emailSlice = createSlice({
   name: "email",
   initialState,
   reducers: {
-    onFavoriteClickHandler: (state, action: PayloadAction<number>) => {
-      const index = action.payload;
+    handleFavoriteButtonClick: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
 
-      const email = state.selectedEmail as Email;
-      const newEmail = { ...email, isFavorite: !email.isFavorite };
+      const index = state.list.findIndex((email) => email.id === id);
 
-      state.list[index - 1] = newEmail;
-      state.selectedEmail = newEmail;
+      if (index !== -1) {
+        let email = state.selectedEmail as Email;
+        email = { ...email, isFavorite: !email?.isFavorite };
+
+        state.list[index] = email;
+        state.selectedEmail = email;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -38,13 +42,15 @@ export const emailSlice = createSlice({
       state.loading = false;
       state.error = null;
 
-      state.list = action.payload?.list?.map((email) => ({
-        ...email,
-        body: "",
-        hasRead: false,
-        isFavorite: false,
-      }));
-      state.total = action.payload.total;
+      state.list =
+        action.payload.list?.map((email) => ({
+          ...email,
+          body: "",
+          hasRead: false,
+          isFavorite: false,
+        })) ?? [];
+
+      state.total = action.payload.total ?? 0;
     });
 
     builder.addCase(fetchEmailsByPage.rejected, (state, action) => {
@@ -55,25 +61,33 @@ export const emailSlice = createSlice({
     });
 
     builder.addCase(fetchEmailById.pending, (state, action) => {
-      state.selectedEmail = null;
+      const { id = "" } = action.meta.arg;
 
-      if (action.meta.arg.id != null) {
-        let index = parseInt(action.meta.arg.id);
+      const index = state.list.findIndex((email) => email.id === id);
 
-        let selectedEmail = state.list[index - 1];
-        selectedEmail = { ...selectedEmail, hasRead: !selectedEmail.hasRead };
+      if (index !== -1) {
+        let email = state.list[index];
+        email = { ...email, hasRead: !email.hasRead };
 
-        state.list[index - 1] = selectedEmail;
-
-        state.selectedEmail = selectedEmail;
+        state.list[index] = email;
+        state.selectedEmail = email;
       }
     });
 
     builder.addCase(fetchEmailById.fulfilled, (state, action) => {
-      state.selectedEmail = {
-        ...state.selectedEmail,
-        ...action.payload,
-      };
+      const index = state.list.findIndex(
+        (email) => email.id === action.payload.id
+      );
+
+      if (index !== -1) {
+        const email = {
+          ...state.selectedEmail,
+          ...action.payload,
+        };
+
+        state.list[index] = email;
+        state.selectedEmail = email;
+      }
     });
 
     builder.addCase(fetchEmailById.rejected, (state, action) => {
@@ -85,6 +99,6 @@ export const emailSlice = createSlice({
   },
 });
 
-export const { onFavoriteClickHandler } = emailSlice.actions;
+export const { handleFavoriteButtonClick } = emailSlice.actions;
 
 export default emailSlice.reducer;

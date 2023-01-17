@@ -10,7 +10,7 @@ import "../Avatar/Avatar.css";
 import { Email } from "../../models/email";
 
 // actions
-import { onFavoriteClickHandler } from "../../redux/slices/emailSlice";
+import { handleFavoriteButtonClick } from "../../redux/slices/emailSlice";
 
 // hooks
 import { useAppDispatch } from "../../redux/store";
@@ -44,7 +44,7 @@ const EmailBody = ({
           <section className="info">
             <button
               className={`favorite-btn ${isFavorite ? "remove" : ""}`}
-              onClick={() => dispatch(onFavoriteClickHandler(parseInt(id)))}
+              onClick={() => dispatch(handleFavoriteButtonClick(id))}
             >
               {buttonText}
             </button>
