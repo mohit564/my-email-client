@@ -16,16 +16,13 @@ function Home() {
   const { openedEmail } = useSelector((state: RootState) => state.email);
   return (
     <main className="app">
-      <section className={`filters ${openedEmail != null ? "email-open" : ""}`}>
-        <Filters />
-      </section>
+      <Filters />
       <div className="container">
         <div className={`left ${openedEmail != null ? "email-open" : ""}`}>
           <EmailList />
         </div>
         {openedEmail != null && (
           <div className="right">
-            <button className="inbox">&laquo; Inbox</button>
             <EmailBody {...openedEmail} />
           </div>
         )}

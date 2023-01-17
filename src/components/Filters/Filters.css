@@ -1,3 +1,10 @@
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
 .filters .label {
   font-size: 1rem;
   font-weight: 600;
@@ -22,4 +29,10 @@
   background: var(--color-filter);
   border-color: var(--color-border);
   border-radius: 100px;
+}
+
+@media (min-width: 40rem) {
+  .filters {
+    justify-content: flex-start;
+  }
 }

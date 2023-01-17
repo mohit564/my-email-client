@@ -24,7 +24,7 @@ function Filters() {
   }, [filter]);
 
   return (
-    <>
+    <section className="filters">
       <h1 className="label">Filter By:</h1>
       <button
         className={`filter ${filter === "UNREAD" ? "active" : ""}`}
@@ -48,7 +48,7 @@ function Filters() {
       >
         Favorites
       </button>
-    </>
+    </section>
   );
 }
 

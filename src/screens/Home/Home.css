@@ -2,19 +2,11 @@
   padding: 1rem;
 }
 
-.app .filters {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 1rem;
-}
-
 .app .left,
 .app .right {
   width: 100%;
 }
 
-.app .filters.email-open,
 .app .left.email-open {
   display: none;
 }
@@ -41,10 +33,6 @@
 
   .app .right {
     padding: 1rem;
-  }
-
-  .app .filters.email-open {
-    display: flex;
   }
 
   .app .left.email-open {
