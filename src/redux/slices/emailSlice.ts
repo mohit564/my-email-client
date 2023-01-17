@@ -1,17 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 // types
-import { Email, EmailState } from "../../models/email";
+import type { Email, EmailState } from "../../models/email";
+import type { EmailFilterTypes } from "../../models/filter";
 
 // services
 import { fetchEmailsByPage, fetchEmailById } from "../../services/email";
 
+// utils
+import { convertArrayToEmailList } from "../../utils/email";
+
 const initialState = {
   loading: false,
   error: null,
-  list: [],
+  emails: {},
   total: 0,
-  selectedEmail: null,
+  openedEmail: null,
+  filteredEmails: {},
 } as EmailState;
 
 export const emailSlice = createSlice({
@@ -21,15 +26,44 @@ export const emailSlice = createSlice({
     handleFavoriteButtonClick: (state, action: PayloadAction<string>) => {
       const id = action.payload;
 
-      const index = state.list.findIndex((email) => email.id === id);
-
-      if (index !== -1) {
-        let email = state.selectedEmail as Email;
-        email = { ...email, isFavorite: !email?.isFavorite };
-
-        state.list[index] = email;
-        state.selectedEmail = email;
+      if (state.filteredEmails.hasOwnProperty(id)) {
+        state.filteredEmails[id].isFavorite =
+          !state.filteredEmails[id].isFavorite;
+        state.emails[id] = state.filteredEmails[id];
+        state.openedEmail = state.filteredEmails[id];
       }
+    },
+
+    getEmailsByFilter: (state, action: PayloadAction<EmailFilterTypes>) => {
+      const filter = action.payload;
+
+      let filteredEmails = [] as Email[];
+
+      switch (filter) {
+        case "ALL":
+          filteredEmails = Object.values(state.emails);
+          break;
+        case "UNREAD":
+          filteredEmails = Object.values(state.emails).filter(
+            (email) => !email.hasRead
+          );
+          break;
+        case "READ":
+          filteredEmails = Object.values(state.emails).filter(
+            (email) => email.hasRead
+          );
+          break;
+        case "FAVORITE":
+          filteredEmails = Object.values(state.emails).filter(
+            (email) => email.isFavorite
+          );
+          break;
+        default:
+          filteredEmails = Object.values(state.emails);
+      }
+
+      state.filteredEmails = convertArrayToEmailList(filteredEmails);
+      state.openedEmail = null;
     },
   },
   extraReducers: (builder) => {
@@ -39,18 +73,13 @@ export const emailSlice = createSlice({
     });
 
     builder.addCase(fetchEmailsByPage.fulfilled, (state, action) => {
+      state.emails = convertArrayToEmailList(action.payload.list);
+
+      state.filteredEmails = state.emails;
+      state.total = action.payload.total ?? 0;
+
       state.loading = false;
       state.error = null;
-
-      state.list =
-        action.payload.list?.map((email) => ({
-          ...email,
-          body: "",
-          hasRead: false,
-          isFavorite: false,
-        })) ?? [];
-
-      state.total = action.payload.total ?? 0;
     });
 
     builder.addCase(fetchEmailsByPage.rejected, (state, action) => {
@@ -63,42 +92,33 @@ export const emailSlice = createSlice({
     builder.addCase(fetchEmailById.pending, (state, action) => {
       const { id = "" } = action.meta.arg;
 
-      const index = state.list.findIndex((email) => email.id === id);
-
-      if (index !== -1) {
-        let email = state.list[index];
-        email = { ...email, hasRead: !email.hasRead };
-
-        state.list[index] = email;
-        state.selectedEmail = email;
+      if (state.filteredEmails.hasOwnProperty(id)) {
+        state.filteredEmails[id].hasRead = true;
+        state.emails[id] = state.filteredEmails[id];
+        state.openedEmail = state.filteredEmails[id];
       }
     });
 
     builder.addCase(fetchEmailById.fulfilled, (state, action) => {
-      const index = state.list.findIndex(
-        (email) => email.id === action.payload.id
-      );
+      const { id = "", body = "" } = action.payload;
 
-      if (index !== -1) {
-        const email = {
-          ...state.selectedEmail,
-          ...action.payload,
-        };
-
-        state.list[index] = email;
-        state.selectedEmail = email;
+      if (state.filteredEmails.hasOwnProperty(id)) {
+        state.filteredEmails[id].body = body;
+        state.emails[id] = state.filteredEmails[id];
+        state.openedEmail = state.filteredEmails[id];
       }
     });
 
     builder.addCase(fetchEmailById.rejected, (state, action) => {
       console.log("Error", action.payload);
 
-      state.selectedEmail = null;
+      state.openedEmail = null;
       state.error = new Error("Something went wrong, please try again");
     });
   },
 });
 
-export const { handleFavoriteButtonClick } = emailSlice.actions;
+export const { handleFavoriteButtonClick, getEmailsByFilter } =
+  emailSlice.actions;
 
 export default emailSlice.reducer;

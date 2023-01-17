@@ -9,6 +9,8 @@
   background: none;
   outline: none;
   font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid transparent;
 }
 
 .filters .filter:hover,
@@ -18,7 +20,6 @@
 
 .filters .filter.active {
   background: var(--color-filter);
-  padding: 8px 16px;
-  border: 1px solid var(--color-border);
+  border-color: var(--color-border);
   border-radius: 100px;
 }

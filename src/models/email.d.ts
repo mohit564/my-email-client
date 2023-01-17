@@ -2,10 +2,16 @@ export type EmailState = {
   loading: boolean;
   error: Error | null;
 
-  list: Email[];
+  emails: Record<string, Email>;
   total: number;
 
-  selectedEmail: Email | null;
+  filteredEmails: Record<string, Email>;
+  openedEmail: Email | null;
+};
+
+export type EmailListResponse = {
+  list: Email[];
+  total: number;
 };
 
 export type Email = {

@@ -1,0 +1,17 @@
+.no-email-container {
+  padding-top: 1rem;
+  text-align: center;
+  background: white;
+
+  height: 50vh;
+  position: relative;
+  margin-top: 1rem;
+}
+
+.no-email-container .message {
+  color: var(--color-accent);
+  font-size: 2rem;
+  display: grid;
+  place-items: center;
+  height: 90%;
+}

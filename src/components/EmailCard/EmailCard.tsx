@@ -16,7 +16,7 @@ import { fetchEmailById } from "../../services/email";
 // components
 import Avatar from "../Avatar/Avatar";
 
-export type EmailCardProps = Email & { selectedEmailId: string };
+export type EmailCardProps = Email & { openedEmailId: string };
 
 const EmailCard = ({
   id,
@@ -26,14 +26,14 @@ const EmailCard = ({
   date,
   hasRead,
   isFavorite,
-  selectedEmailId,
+  openedEmailId,
 }: EmailCardProps) => {
   const dispatch = useAppDispatch();
 
   return (
     <section
       className={`email-card ${hasRead ? "read" : ""} ${
-        selectedEmailId === id ? "open" : ""
+        openedEmailId === id ? "open" : ""
       }`}
       onClick={() => dispatch(fetchEmailById({ id }))}
     >

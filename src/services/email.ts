@@ -4,13 +4,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { API_URL } from "../constants";
 
 // types
-import { Email, EmailState, EmailFilters } from "../models/email";
+import { Email, EmailListResponse, EmailFilters } from "../models/email";
 
-export const fetchEmails = createAsyncThunk<EmailState, EmailFilters>(
+export const fetchEmails = createAsyncThunk<EmailListResponse, EmailFilters>(
   "email/fetchEmails",
   async (_, thunkAPI) => {
     const response = await fetch(API_URL);
-    const data = (await response.json()) as EmailState;
+    const data = (await response.json()) as EmailListResponse;
 
     if (response.status < 200 || response.status >= 300) {
       return thunkAPI.rejectWithValue(data);
@@ -20,19 +20,19 @@ export const fetchEmails = createAsyncThunk<EmailState, EmailFilters>(
   }
 );
 
-export const fetchEmailsByPage = createAsyncThunk<EmailState, EmailFilters>(
-  "email/fetchEmailsByPage",
-  async ({ page = 1 }, thunkAPI) => {
-    const response = await fetch(`${API_URL}?page=${page}`);
-    const data = (await response.json()) as EmailState;
+export const fetchEmailsByPage = createAsyncThunk<
+  EmailListResponse,
+  EmailFilters
+>("email/fetchEmailsByPage", async ({ page = 1 }, thunkAPI) => {
+  const response = await fetch(`${API_URL}?page=${page}`);
+  const data = (await response.json()) as EmailListResponse;
 
-    if (response.status < 200 || response.status >= 300) {
-      return thunkAPI.rejectWithValue(data);
-    }
-
-    return data;
+  if (response.status < 200 || response.status >= 300) {
+    return thunkAPI.rejectWithValue(data);
   }
-);
+
+  return data;
+});
 
 export const fetchEmailById = createAsyncThunk<Email, EmailFilters>(
   "email/fetchEmailById",

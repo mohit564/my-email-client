@@ -13,22 +13,20 @@ import EmailList from "../../components/EmailList/EmailList";
 import EmailBody from "../../components/EmailBody/EmailBody";
 
 function Home() {
-  const { selectedEmail } = useSelector((state: RootState) => state.email);
+  const { openedEmail } = useSelector((state: RootState) => state.email);
   return (
     <main className="app">
-      <section
-        className={`filters ${selectedEmail != null ? "email-open" : ""}`}
-      >
+      <section className={`filters ${openedEmail != null ? "email-open" : ""}`}>
         <Filters />
       </section>
       <div className="container">
-        <div className={`left ${selectedEmail != null ? "email-open" : ""}`}>
+        <div className={`left ${openedEmail != null ? "email-open" : ""}`}>
           <EmailList />
         </div>
-        {selectedEmail != null && (
+        {openedEmail != null && (
           <div className="right">
             <button className="inbox">&laquo; Inbox</button>
-            <EmailBody {...selectedEmail} />
+            <EmailBody {...openedEmail} />
           </div>
         )}
       </div>
