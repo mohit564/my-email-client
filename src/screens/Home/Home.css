@@ -11,17 +11,6 @@
   display: none;
 }
 
-.right .inbox {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-  background: #b2b2b2;
-  color: #000;
-  margin-bottom: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
 @media (min-width: 40rem) {
   .app {
     padding: 4rem;
@@ -38,9 +27,5 @@
   .app .left.email-open {
     display: block;
     width: 35%;
-  }
-
-  .right button.inbox {
-    display: none;
   }
 }

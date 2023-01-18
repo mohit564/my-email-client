@@ -27,8 +27,9 @@ export const emailSlice = createSlice({
       const id = action.payload;
 
       if (state.filteredEmails.hasOwnProperty(id)) {
-        state.filteredEmails[id].isFavorite =
-          !state.filteredEmails[id].isFavorite;
+        const isFavorite = !state.filteredEmails[id].isFavorite;
+
+        state.filteredEmails[id].isFavorite = isFavorite;
         state.emails[id] = state.filteredEmails[id];
         state.openedEmail = state.filteredEmails[id];
       }
