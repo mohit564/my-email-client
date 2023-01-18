@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
+// styles
+import "./EmailList.css";
+
 // types
 import type { RootState } from "../../redux/store";
 
@@ -22,7 +25,7 @@ function EmailList() {
   const [page, setPage] = useState(1);
 
   // redux states
-  const { loading, filteredEmails, openedEmail } = useSelector(
+  const { loading, emails, total, filteredEmails, openedEmail } = useSelector(
     (state: RootState) => state.email
   );
 
@@ -35,8 +38,18 @@ function EmailList() {
     return <NoEmailFound />;
   }
 
+  /* Show Load Button
+    1. fetching emails apis not in loading state
+    2. current email list is less than total emails
+    3. When no filter is active
+  */
+  const showLoadMoreButton =
+    !loading &&
+    Object.keys(emails).length < total &&
+    Object.keys(emails).length === Object.keys(filteredEmails).length;
+
   return (
-    <section style={{ paddingTop: "1rem" }}>
+    <section className="email-list-container">
       {loading
         ? showEmailCardSkelton()
         : Object.values(filteredEmails).map((email) => (
@@ -46,6 +59,14 @@ function EmailList() {
               openedEmailId={openedEmail?.id ?? ""}
             />
           ))}
+      {showLoadMoreButton && (
+        <button
+          className="more-email-btn"
+          onClick={() => setPage((prev) => prev + 1)}
+        >
+          Load More
+        </button>
+      )}
     </section>
   );
 }

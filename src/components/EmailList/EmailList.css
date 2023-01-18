@@ -1,0 +1,12 @@
+.email-list-container {
+  padding-top: 1rem;
+}
+
+.email-list-container .more-email-btn {
+  display: block;
+  max-width: 320px;
+  padding: 8px 16px;
+  margin: 0 auto;
+  outline: none;
+  font-size: 1rem;
+}

@@ -81,7 +81,13 @@ export const emailSlice = createSlice({
     });
 
     builder.addCase(fetchEmailsByPage.fulfilled, (state, action) => {
-      state.emails = convertArrayToEmailList(action.payload.list);
+      const newEmails = convertArrayToEmailList(action.payload.list);
+
+      if (state.total > 0) {
+        state.emails = { ...state.emails, ...newEmails };
+      } else {
+        state.emails = newEmails;
+      }
 
       state.filteredEmails = state.emails;
       state.total = action.payload.total ?? 0;
