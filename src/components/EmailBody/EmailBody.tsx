@@ -1,6 +1,5 @@
 import React from "react";
 import Moment from "react-moment";
-import parse from "html-react-parser";
 
 // styles
 import "./EmailBody.css";
@@ -50,7 +49,10 @@ const EmailBody = ({
             </button>
             <h1 className="subject bold">{subject}</h1>
             <Moment format="DD/MM/YYYY h:mma">{date}</Moment>
-            <p className="message">{parse(body)}</p>
+            <p
+              className="message"
+              dangerouslySetInnerHTML={{ __html: body }}
+            ></p>
           </section>
         </>
       )}
