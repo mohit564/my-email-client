@@ -34,8 +34,8 @@ export const fetchEmailsByPage = createAsyncThunk<
   return data;
 });
 
-export const fetchEmailById = createAsyncThunk<Email, EmailFilters>(
-  "email/fetchEmailById",
+export const fetchEmailBodyById = createAsyncThunk<Email, EmailFilters>(
+  "email/fetchEmailBodyById",
   async ({ id }, thunkAPI) => {
     const response = await fetch(`${API_URL}?id=${id}`);
     const data = (await response.json()) as Email;

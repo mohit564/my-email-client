@@ -5,13 +5,16 @@ import Moment from "react-moment";
 import "./EmailCard.css";
 
 // types
-import { Email } from "../../models/email";
+import type { Email } from "../../models/email";
 
 // hooks
 import { useAppDispatch } from "../../redux/store";
 
 // services
-import { fetchEmailById } from "../../services/email";
+import { fetchEmailBodyById } from "../../services/email";
+
+// actions
+import { openEmailFromList } from "../../redux/slices/emailSlice";
 
 // components
 import Avatar from "../Avatar/Avatar";
@@ -23,6 +26,7 @@ const EmailCard = ({
   from: { name, email },
   subject,
   short_description,
+  body,
   date,
   hasRead,
   isFavorite,
@@ -30,12 +34,20 @@ const EmailCard = ({
 }: EmailCardProps) => {
   const dispatch = useAppDispatch();
 
+  const handleEmailCardClick = () => {
+    if (body.length === 0) {
+      dispatch(fetchEmailBodyById({ id }));
+    } else {
+      dispatch(openEmailFromList(id));
+    }
+  };
+
   return (
     <section
       className={`email-card ${hasRead ? "read" : ""} ${
         openedEmailId === id ? "open" : ""
       }`}
-      onClick={() => dispatch(fetchEmailById({ id }))}
+      onClick={handleEmailCardClick}
     >
       <div className="icon">
         <Avatar name={name} />

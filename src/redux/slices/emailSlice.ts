@@ -5,7 +5,7 @@ import type { Email, EmailState } from "../../models/email";
 import type { EmailFilterTypes } from "../../models/filter";
 
 // services
-import { fetchEmailsByPage, fetchEmailById } from "../../services/email";
+import { fetchEmailsByPage, fetchEmailBodyById } from "../../services/email";
 
 // utils
 import { convertArrayToEmailList } from "../../utils/email";
@@ -65,6 +65,14 @@ export const emailSlice = createSlice({
       state.filteredEmails = convertArrayToEmailList(filteredEmails);
       state.openedEmail = null;
     },
+
+    openEmailFromList: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+
+      if (state.filteredEmails.hasOwnProperty(id)) {
+        state.openedEmail = state.filteredEmails[id];
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchEmailsByPage.pending, (state, action) => {
@@ -89,7 +97,7 @@ export const emailSlice = createSlice({
       state.error = new Error("Something went wrong, please try again");
     });
 
-    builder.addCase(fetchEmailById.pending, (state, action) => {
+    builder.addCase(fetchEmailBodyById.pending, (state, action) => {
       const { id = "" } = action.meta.arg;
 
       if (state.filteredEmails.hasOwnProperty(id)) {
@@ -99,7 +107,7 @@ export const emailSlice = createSlice({
       }
     });
 
-    builder.addCase(fetchEmailById.fulfilled, (state, action) => {
+    builder.addCase(fetchEmailBodyById.fulfilled, (state, action) => {
       const { id = "", body = "" } = action.payload;
 
       if (state.filteredEmails.hasOwnProperty(id)) {
@@ -109,7 +117,7 @@ export const emailSlice = createSlice({
       }
     });
 
-    builder.addCase(fetchEmailById.rejected, (state, action) => {
+    builder.addCase(fetchEmailBodyById.rejected, (state, action) => {
       console.log("Error", action.payload);
 
       state.openedEmail = null;
@@ -118,7 +126,10 @@ export const emailSlice = createSlice({
   },
 });
 
-export const { handleFavoriteButtonClick, getEmailsByFilter } =
-  emailSlice.actions;
+export const {
+  handleFavoriteButtonClick,
+  getEmailsByFilter,
+  openEmailFromList,
+} = emailSlice.actions;
 
 export default emailSlice.reducer;
