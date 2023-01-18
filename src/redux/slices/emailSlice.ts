@@ -111,7 +111,9 @@ export const emailSlice = createSlice({
     });
 
     builder.addCase(fetchEmailsByPage.rejected, (state, action) => {
-      console.log("Error", action.payload);
+      console.error(
+        `App Error occurred at ${new Date().toISOString()} : ${action.payload}`
+      );
 
       state.loading = false;
       state.error = new Error("Something went wrong, please try again");
@@ -141,7 +143,9 @@ export const emailSlice = createSlice({
     });
 
     builder.addCase(fetchEmailBodyById.rejected, (state, action) => {
-      console.log("Error", action.payload);
+      console.error(
+        `App Error occurred at ${new Date().toISOString()} : ${action.payload}`
+      );
 
       state.openedEmail = null;
       state.error = new Error("Something went wrong, please try again");
