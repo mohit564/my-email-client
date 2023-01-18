@@ -8,7 +8,14 @@ import type { EmailFilterTypes } from "../../models/filter";
 import { fetchEmailsByPage, fetchEmailBodyById } from "../../services/email";
 
 // utils
-import { convertArrayToEmailList } from "../../utils/email";
+import {
+  convertArrayToEmailList,
+  loadReadEmailsHistory,
+  loadFavoriteEmailsHistory,
+  addIdToReadEmailHistory,
+  addIdToFavoriteEmailHistory,
+  removeIdFromFavoriteEmailHistory,
+} from "../../utils/email";
 
 const initialState = {
   loading: false,
@@ -28,6 +35,9 @@ export const emailSlice = createSlice({
 
       if (state.filteredEmails.hasOwnProperty(id)) {
         const isFavorite = !state.filteredEmails[id].isFavorite;
+
+        if (isFavorite) addIdToFavoriteEmailHistory(id);
+        else removeIdFromFavoriteEmailHistory(id);
 
         state.filteredEmails[id].isFavorite = isFavorite;
         state.emails[id] = state.filteredEmails[id];
@@ -90,6 +100,9 @@ export const emailSlice = createSlice({
         state.emails = newEmails;
       }
 
+      state.emails = loadReadEmailsHistory(state.emails);
+      state.emails = loadFavoriteEmailsHistory(state.emails);
+
       state.filteredEmails = state.emails;
       state.total = action.payload.total ?? 0;
 
@@ -109,6 +122,9 @@ export const emailSlice = createSlice({
 
       if (state.filteredEmails.hasOwnProperty(id)) {
         state.filteredEmails[id].hasRead = true;
+
+        addIdToReadEmailHistory(id);
+
         state.emails[id] = state.filteredEmails[id];
         state.openedEmail = state.filteredEmails[id];
       }
